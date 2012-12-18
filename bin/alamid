@@ -1,0 +1,59 @@
+#!/usr/bin/env node
+
+var fs = require("fs"),
+    exec = require("child_process").exec;
+
+var findup = require('findup-sync'),
+    program = require("commander");
+
+// Start looking somewhere else, and ignore case (probably a good idea).
+var alamidCliPath = findup('alamidCli.js', {cwd: './node_modules/alamid/bin/'});
+
+function createProject() {
+
+    program.prompt("Project-name: ", function(projectName) {
+
+        fs.mkdirSync(projectName);
+        process.chdir(projectName);
+        fs.mkdirSync("node_modules");
+
+        var npmInstall = exec("npm install alamid", function(err) {
+
+            if(err) {
+                throw err;
+            }
+
+            console.log("Done with alamid-install. Creating structure now... ");
+
+            require(alamidCliPath).createStructure();
+
+            console.log("done.");
+            process.exit(0);
+        });
+
+        npmInstall.stdout.pipe(process.stdout);
+        npmInstall.stderr.pipe(process.stderr);
+    });
+}
+
+//check if the local alamid-installation exists
+if(!alamidCliPath) {
+
+    program.confirm("alamid not installed. Do you want to create a new alamid-project? ", function(ok){
+
+        if(ok) {
+            createProject();
+            return;
+        }
+
+        process.exit(0);
+    });
+}
+//run CLI
+else {
+    require(alamidCliPath).cli();
+}
+
+
+
+
