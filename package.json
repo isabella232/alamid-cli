@@ -1,0 +1,30 @@
+{
+  "name": "alamid-cli",
+  "description": "The alamid command line interface.",
+  "version": "0.1.0",
+  "author": "peerigon <hello@peerigon.com>",
+  "homepage": "http://alamidjs.com/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/peerigon/alamid-cli.git"
+  },
+  "bugs": {
+    "url": "http://github.com/peerigin/alamid-cli/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "bin": {
+    "grunt": "bin/alamid"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "preferGlobal": true,
+  "dependencies": {
+    "commander": "1.x",
+    "findup-sync": "0.x"
+  }
+}
