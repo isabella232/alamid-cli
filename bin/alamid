@@ -17,6 +17,8 @@ function createProject() {
         process.chdir(projectName);
         fs.mkdirSync("node_modules");
 
+        console.log("Installing dependencies...");
+
         var npmInstall = exec("npm install alamid", function(err) {
 
             if(err) {
@@ -39,7 +41,7 @@ function createProject() {
 //check if the local alamid-installation exists
 if(!alamidCliPath) {
 
-    program.confirm("alamid not installed. Do you want to create a new alamid-project? ", function(ok){
+    program.confirm("No alamid-project found. Do you want to create a new project? ", function(ok){
 
         if(ok) {
             createProject();
